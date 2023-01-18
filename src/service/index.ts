@@ -1,5 +1,6 @@
 import GBquset from './request'
 import { BASE_URL, TIME_OUT } from './request/config'
+import localCache from '@/utils/cache'
 
 // service 统一出口
 
@@ -9,7 +10,7 @@ const gbRequest = new GBquset({
   interceptors: {
     requestInterceptor: (config) => {
       // 携带token的拦截
-      const token = ''
+      const token = localCache.getCache('token')
       if (token && typeof config.headers?.set === 'function') {
         config.headers.set('Authorization', `Bearer ${token}`)
       }
