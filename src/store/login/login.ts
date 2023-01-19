@@ -48,7 +48,13 @@ const loginModeule: Module<ILoginState, IRootState> = {
       // 3、请求用户的菜单
       const userMenuResult = await requestUserMenus(userInfo.role.id)
       const userMenus = userMenuResult.data
+      userMenus.icon = userMenus.forEach((i: any) => {
+        if (i.icon) {
+          return (i.icon = i.icon = i.icon.slice(8))
+        }
+      })
       commit('changeUserMenus', userMenus)
+      localCache.setCache('userMenus', userMenus)
 
       // 4、跳到首页去
       router.push('/main')
