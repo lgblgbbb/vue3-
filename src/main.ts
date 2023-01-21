@@ -13,12 +13,11 @@ const app = createApp(App)
 
 // 注册element-plus
 registerApp(app)
+// 刷新不丢失数据
+setupStore()
 app.use(router)
 app.use(store)
 app.mount('#app')
-
-// 刷新不丢失数据
-setupStore()
 
 // gbRequest.request({
 //   url:''
