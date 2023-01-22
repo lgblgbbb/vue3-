@@ -1,5 +1,8 @@
 <template>
   <div class="hy-form">
+    <div class="header">
+      <slot name="header"></slot>
+    </div>
     <el-form :label-width="labelWidth">
       <el-row>
         <template v-for="item in formItems" :key="item.label">
@@ -46,6 +49,9 @@
         </template>
       </el-row>
     </el-form>
+    <div class="footer">
+      <slot name="footer"></slot>
+    </div>
   </div>
 </template>
 
@@ -55,6 +61,7 @@ import { IFormItem } from '../types'
 
 export default defineComponent({
   props: {
+    // modelValue为约定俗成的字段，就是父组件传来的v-model绑定
     modelValue: {
       type: Object,
       required: true
@@ -82,13 +89,13 @@ export default defineComponent({
       })
     }
   },
-  emits: ['updata:modelValue'],
+  emits: ['update:modelValue'], //updata:modelValue是固定的
   setup(props, { emit }) {
     const formData = ref({ ...props.modelValue })
     watch(
       formData,
       (newValue) => {
-        emit('updata:modelValue', newValue)
+        emit('update:modelValue', newValue)
       },
       {
         deep: true
