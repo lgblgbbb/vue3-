@@ -41,14 +41,16 @@ export default defineComponent({
     Search,
     Refresh
   },
-  setup() {
-    const formData = ref({
-      id: '',
-      name: '',
-      password: '',
-      sport: '',
-      createTime: ''
-    })
+  setup(props) {
+    // 双向绑定的属性应该是由配置文件的field决定
+    // 1优化一：formData中的属性应该动态来决定
+    const formItems = props.searchFormConfig?.formItems ?? []
+
+    const formOriginData: any = {}
+    for (const item of formItems) {
+      formOriginData[item.filed] = ''
+    }
+    const formData = ref(formOriginData)
 
     return {
       formData
