@@ -19,7 +19,8 @@
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
                   :show-password="item.type === 'password'"
-                  v-model="formData[`${item.filed}`]"
+                  :model-value="modelValue[`${item.filed}`]"
+                  @update:modelValue="handleValueChange($event, item.filed)"
                 />
               </template>
               <template v-else-if="item.type === 'select'">
@@ -27,7 +28,8 @@
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
                   style="width: 100%"
-                  v-model="formData[`${item.filed}`]"
+                  :model-value="modelValue[`${item.filed}`]"
+                  @update:modelValue="handleValueChange($event, item.filed)"
                 >
                   <el-option
                     v-for="option in item.options"
@@ -41,7 +43,8 @@
                 <el-date-picker
                   style="width: 100%"
                   v-bind="item.otherOptions"
-                  v-model="formData[`${item.filed}`]"
+                  :model-value="modelValue[`${item.filed}`]"
+                  @update:modelValue="handleValueChange($event, item.filed)"
                 ></el-date-picker>
               </template>
             </el-form-item>
@@ -91,18 +94,24 @@ export default defineComponent({
   },
   emits: ['update:modelValue'], //updata:modelValue是固定的
   setup(props, { emit }) {
-    const formData = ref({ ...props.modelValue })
-    watch(
-      formData,
-      (newValue) => {
-        emit('update:modelValue', newValue)
-      },
-      {
-        deep: true
-      }
-    )
+    // const formData = ref({ ...props.modelValue })
+    // watch(
+    //   formData,
+    //   (newValue) => {
+    //     emit('update:modelValue', newValue)
+    //   },
+    //   {
+    //     deep: true
+    //   }
+    // )
+    // 双向绑定数据
+    const handleValueChange = (value: any, filed: string) => {
+      emit('update:modelValue', { ...props.modelValue, [filed]: value })
+    }
+
     return {
-      formData
+      // formData
+      handleValueChange
     }
   }
 })

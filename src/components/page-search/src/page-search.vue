@@ -6,13 +6,13 @@
       </template>
       <template #footer>
         <div class="handle-btns">
-          <el-button>
+          <el-button @click="handleResetClick">
             <el-icon style="vertical-align: middle">
               <Refresh />
             </el-icon>
             <span style="vertical-align: middle"> 重置 </span>
           </el-button>
-          <el-button type="primary">
+          <el-button type="primary" @click="handleQueryClick">
             <el-icon style="vertical-align: middle">
               <Search />
             </el-icon>
@@ -41,7 +41,8 @@ export default defineComponent({
     Search,
     Refresh
   },
-  setup(props) {
+  emits: ['resetBtnClick', 'queryBtnClick'],
+  setup(props, { emit }) {
     // 双向绑定的属性应该是由配置文件的field决定
     // 1优化一：formData中的属性应该动态来决定
     const formItems = props.searchFormConfig?.formItems ?? []
@@ -52,8 +53,19 @@ export default defineComponent({
     }
     const formData = ref(formOriginData)
 
+    // 2.优化二: 当用户点击重置
+    const handleResetClick = () => {
+      formData.value = formOriginData
+      emit('resetBtnClick')
+    }
+    // 3优化用户点击搜索
+    const handleQueryClick = () => {
+      emit('queryBtnClick', formData.value)
+    }
     return {
-      formData
+      formData,
+      handleResetClick,
+      handleQueryClick
     }
   }
 })
