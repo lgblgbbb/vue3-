@@ -48,12 +48,14 @@ const loginModeule: Module<ILoginState, IRootState> = {
     }
   },
   actions: {
-    async accountLoginAction({ commit }, payload: IAccount) {
+    async accountLoginAction({ commit, dispatch }, payload: IAccount) {
       // 1、实现登录逻辑
       const loginResult = await accountLoginRequest(payload)
       const { id, token } = loginResult.data
       localCache.setCache('token', token)
       commit('changeToken', token)
+      // 发送初始化的请求(完整的role/department)
+      dispatch('getInitialDataAction', null, { root: true })
 
       // 2、请求用户信息
       const userInfoResult = await requestUserInfoById(id)
@@ -76,10 +78,12 @@ const loginModeule: Module<ILoginState, IRootState> = {
       router.push('/main')
     },
     // 刷新不丢失数据
-    loadLocalLogin({ commit }) {
+    loadLocalLogin({ commit, dispatch }) {
       const token = localCache.getCache('token')
       if (token) {
         commit('changeToken', token)
+        // 发送初始化的请求(完整的role/department)
+        dispatch('getInitialDataAction', null, { root: true })
       }
       const userInfo = localCache.getCache('userInfo')
       if (userInfo) {

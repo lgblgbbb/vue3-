@@ -11,7 +11,7 @@
     <el-table
       :data="listData"
       border
-      style="width: 100%"
+      style="width: 100%; margin-bottom: 50px"
       @selection-change="handleSelectionChange"
       v-bind="childrenProps"
     >
@@ -139,9 +139,12 @@ export default defineComponent({
 
 .footer {
   margin-top: 15px;
+  position: relative;
 
   .el-pagination {
-    margin-left: 30%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
   }
 }
 </style>

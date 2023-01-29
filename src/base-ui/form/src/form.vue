@@ -8,6 +8,7 @@
         <template v-for="item in formItems" :key="item.label">
           <el-col v-bind="colLayout">
             <el-form-item
+              v-if="!item.isHidden"
               :label="item.label"
               :rules="item.rules"
               :style="itemStyle"
@@ -19,8 +20,8 @@
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
                   :show-password="item.type === 'password'"
-                  :model-value="modelValue[`${item.filed}`]"
-                  @update:modelValue="handleValueChange($event, item.filed)"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handleValueChange($event, item.field)"
                 />
               </template>
               <template v-else-if="item.type === 'select'">
@@ -28,8 +29,8 @@
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
                   style="width: 100%"
-                  :model-value="modelValue[`${item.filed}`]"
-                  @update:modelValue="handleValueChange($event, item.filed)"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handleValueChange($event, item.field)"
                 >
                   <el-option
                     v-for="option in item.options"
@@ -43,8 +44,8 @@
                 <el-date-picker
                   style="width: 100%"
                   v-bind="item.otherOptions"
-                  :model-value="modelValue[`${item.filed}`]"
-                  @update:modelValue="handleValueChange($event, item.filed)"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handleValueChange($event, item.field)"
                 ></el-date-picker>
               </template>
             </el-form-item>
@@ -105,8 +106,8 @@ export default defineComponent({
     //   }
     // )
     // 双向绑定数据
-    const handleValueChange = (value: any, filed: string) => {
-      emit('update:modelValue', { ...props.modelValue, [filed]: value })
+    const handleValueChange = (value: any, field: string) => {
+      emit('update:modelValue', { ...props.modelValue, [field]: value })
     }
 
     return {

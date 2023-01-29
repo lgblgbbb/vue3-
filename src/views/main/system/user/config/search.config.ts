@@ -10,31 +10,31 @@ export const searchFormConfig: IForm = {
   },
   formItems: [
     {
-      filed: 'id',
+      field: 'id',
       type: 'input',
       label: 'id',
       placeholder: '请输入id'
     },
     {
-      filed: 'name',
+      field: 'name',
       type: 'input',
       label: '用户名',
       placeholder: '请输入用户名'
     },
     {
-      filed: 'realname',
+      field: 'realname',
       type: 'input',
       label: '真实姓名',
       placeholder: '请输入真实姓名'
     },
     {
-      filed: 'cellphone',
+      field: 'cellphone',
       type: 'input',
       label: '电话号码',
       placeholder: '请输入电话号码'
     },
     {
-      filed: 'enable',
+      field: 'enable',
       type: 'select',
       label: '用户状态',
       placeholder: '请选择用户状态',
@@ -44,7 +44,7 @@ export const searchFormConfig: IForm = {
       ]
     },
     {
-      filed: 'createAt',
+      field: 'createAt',
       type: 'datepicker',
       label: '创建时间',
       otherOptions: {

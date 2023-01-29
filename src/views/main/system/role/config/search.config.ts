@@ -1,22 +1,22 @@
 import { IForm } from '@/base-ui/form'
 
 export const searchFormConfig: IForm = {
-  labelWidth: '80px',
+  labelWidth: '120px',
   formItems: [
     {
-      filed: 'name',
+      field: 'name',
       type: 'input',
       label: '角色名称',
       placeholder: '请输入角色名称'
     },
     {
-      filed: 'intro',
+      field: 'intro',
       type: 'input',
       label: '权限介绍',
       placeholder: '请输入权限介绍'
     },
     {
-      filed: 'createTime',
+      field: 'createTime',
       type: 'datepicker',
       label: '创建时间',
       otherOptions: {

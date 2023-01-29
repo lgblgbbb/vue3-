@@ -49,7 +49,7 @@ export default defineComponent({
 
     const formOriginData: any = {}
     for (const item of formItems) {
-      formOriginData[item.filed] = ''
+      formOriginData[item.field] = ''
     }
     const formData = ref(formOriginData)
 
