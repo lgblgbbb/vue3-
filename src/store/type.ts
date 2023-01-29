@@ -6,6 +6,7 @@ export interface IRootState {
   age: number
   entirDepartment: any[]
   entireRole: any[]
+  entireMenu: any[]
 }
 
 export interface IRootWithModule {
